@@ -5,7 +5,8 @@ pipeline {
         s3_url = ''
 
     }
-    agent {label: 'terraform'}
+
+    agent { label 'terraform' }
 
     
     stages {
