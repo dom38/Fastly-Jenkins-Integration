@@ -5,7 +5,7 @@ Pipeline {
         s3_url = ''
 
     }
-    agent {label: '##Insert'}
+    agent {label: 'terraform'}
 
     stages {
 
@@ -24,6 +24,7 @@ Pipeline {
 
                 s3_url = sh "terraform output bucket_endpoint"
 
+                //Debug for first run
                 echo "${s3_url}"
 
                 sh """terraform destroy -lock=false -auto-approve \
