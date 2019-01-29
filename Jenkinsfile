@@ -159,6 +159,20 @@ pipeline {
 
                 }
 
+                withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+
+                    script {
+
+                        sh """curl -X DELETE \
+                        https://api.fastly.com/service/${service_id}\
+                        -H 'Accept: application/json' \
+                        -H 'Fastly-Key: ${key}' \
+                        -H 'cache-control: no-cache' \ """
+
+                    }
+
+                }
+
             }
 
         }
