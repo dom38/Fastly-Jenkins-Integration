@@ -1,10 +1,6 @@
+def s3_url = ''
+
 pipeline {
-
-    parameters {
-
-            string(name: 's3_url', defaultValue: '')
-
-        }
 
     agent { label 'terraform' }
 
@@ -41,7 +37,7 @@ pipeline {
 
             steps {
 
-                params.s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
+                s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
 
                 //Debug for first run
                 echo "${s3_url}"
