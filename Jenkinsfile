@@ -23,14 +23,14 @@ pipeline {
 
         stage ('Setup S3 with Terraform') {
 
-            steps{
+            steps {
 
                 withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
 
                     sh """terraform apply -lock=false -auto-approve \
                     -var-file=${variables}"""
 
-                    s3_url = sh "terraform output bucket_endpoint"
+                    s3_url = (sh "terraform output bucket_endpoint")
 
                     //Debug for first run
                     echo "${s3_url}"
@@ -44,25 +44,25 @@ pipeline {
             
         }
 
-        stage ('Setup Service with Fastly') {
+        // stage ('Setup Service with Fastly') {
 
 
-        }
+        // }
 
-        stage ('Add Domain to Fastly Service') {
-
-            
-        }
-
-        stage ('Test files are available on CDN') {
+        // stage ('Add Domain to Fastly Service') {
 
             
-        }
+        // }
 
-        stage ('Clean Resources') {
+        // stage ('Test files are available on CDN') {
 
             
-        }
+        // }
+
+        // stage ('Clean Resources') {
+
+            
+        // }
     }
 
 }
