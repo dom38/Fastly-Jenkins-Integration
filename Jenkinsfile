@@ -30,7 +30,7 @@ pipeline {
                     sh """terraform apply -lock=false -auto-approve \
                     -var-file=${variables}"""
 
-                    s3_url = (sh "terraform output bucket_endpoint")
+                    s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
 
                     //Debug for first run
                     echo "${s3_url}"
