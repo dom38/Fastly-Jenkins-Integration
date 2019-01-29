@@ -27,31 +27,23 @@ pipeline {
                     sh """terraform apply -lock=false -auto-approve \
                     -var-file=${variables}"""
 
+                    script{
+
+                        s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
+
+                    }
+
+                    //Debug for first run
+                    echo "${s3_url}"
+
+                    sh """terraform destroy -lock=false -auto-approve \
+                    -var-file=${variables}"""
+
                 }
 
             }
             
-        }
-
-        stage ('Output Endpoint Variable'){
-
-            steps {
-
-                script{
-
-                    s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
-
-                }
-
-                //Debug for first run
-                echo "${s3_url}"
-
-                sh """terraform destroy -lock=false -auto-approve \
-                -var-file=${variables}"""
-
-            }
-
-        }           
+        }          
 
         // stage ('Setup Service with Fastly') {
 
