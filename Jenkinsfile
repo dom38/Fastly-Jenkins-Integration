@@ -33,11 +33,7 @@ pipeline {
 
                     }
 
-                    //Debug for first run
                     echo "${s3_url}"
-
-                    sh """terraform destroy -lock=false -auto-approve \
-                    -var-file=${variables}"""
 
                 }
 
@@ -60,10 +56,20 @@ pipeline {
             
         // }
 
-        // stage ('Clean Resources') {
+        stage ('Clean Resources') {
 
-            
-        // }
+            steps {
+
+                withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
+
+                    sh """terraform destroy -lock=false -auto-approve \
+                    -var-file=${variables}"""
+
+                }
+
+            }
+
+        }
     }
 
 }
