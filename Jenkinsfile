@@ -27,6 +27,7 @@ pipeline {
 
                 withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
 
+                    sh "terraform init"
                     sh """terraform apply -lock=false -auto-approve \
                     -var-file=${variables}"""
 
