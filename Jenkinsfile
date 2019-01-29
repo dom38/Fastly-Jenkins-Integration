@@ -32,13 +32,7 @@ pipeline {
 
                 }
 
-            }
-
-            steps {
-
                 s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
-
-            }
 
                 //Debug for first run
                 echo "${s3_url}"
@@ -46,7 +40,7 @@ pipeline {
                 sh """terraform destroy -lock=false -auto-approve \
                 -var-file=${variables}"""
 
-            
+            }
             
         }
 
