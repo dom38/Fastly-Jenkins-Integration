@@ -7,17 +7,22 @@ pipeline {
     }
     agent {label: 'terraform'}
 
-    steps {
-        
-        stages {
+    
+    stages {
 
-            stage ('Checkout Repo') {
+        stage ('Checkout Repo') {
+
+            steps {
 
                 git credentialsId: '6d3a9d73-2730-4da5-9065-29cebcd13c1c', url: 'https://github.com/dom38/Fastly-Jenkins-Integration.git'
-                
-            }
 
-            stage ('Setup S3 with Terraform') {
+            }
+            
+        }
+
+        stage ('Setup S3 with Terraform') {
+
+            steps{
 
                 withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
 
@@ -33,30 +38,30 @@ pipeline {
                     -var-file=${variables}"""
 
                 }
-                
-            }
-
-            stage ('Setup Service with Fastly') {
-
 
             }
-
-            stage ('Add Domain to Fastly Service') {
-
-                
-            }
-
-            stage ('Test files are available on CDN') {
-
-                
-            }
-
-            stage ('Clean Resources') {
-
-                
-            }
+            
         }
 
+        stage ('Setup Service with Fastly') {
+
+
+        }
+
+        stage ('Add Domain to Fastly Service') {
+
+            
+        }
+
+        stage ('Test files are available on CDN') {
+
+            
+        }
+
+        stage ('Clean Resources') {
+
+            
+        }
     }
 
 }
