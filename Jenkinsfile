@@ -1,10 +1,6 @@
 pipeline {
 
-    environment {
-
-        s3_url = ''
-
-    }
+    def s3_url = ''
 
     agent { label 'terraform' }
 
