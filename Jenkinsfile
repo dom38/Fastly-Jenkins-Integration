@@ -19,10 +19,15 @@ Pipeline {
 
             withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
 
-                sh """terraform apply -lock=false -input=false \
+                sh """terraform apply -lock=false -auto-approve \
                 -var-file=${variables}"""
 
                 s3_url = sh "terraform output bucket_endpoint"
+
+                echo "${s3_url}"
+
+                sh """terraform destroy -lock=false -auto-approve \
+                -var-file=${variables}"""
 
             }
             
