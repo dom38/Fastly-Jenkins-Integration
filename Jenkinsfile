@@ -32,6 +32,14 @@ pipeline {
 
                 }
 
+            }
+            
+        }
+
+        stage ('Output Endpoint Variable'){
+
+            steps {
+
                 env.s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
 
                 //Debug for first run
@@ -41,8 +49,8 @@ pipeline {
                 -var-file=${variables}"""
 
             }
-            
-        }
+
+        }           
 
         // stage ('Setup Service with Fastly') {
 
