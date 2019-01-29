@@ -1,4 +1,7 @@
+import groovy.json.JsonSlurper
+
 def s3_url = ''
+def service_id = ''
 
 pipeline {
 
@@ -41,10 +44,33 @@ pipeline {
             
         }          
 
-        // stage ('Setup Service with Fastly') {
+        stage ('Setup Service with Fastly') {
+
+            steps {
+
+                withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+
+                    script {
+
+                        def result = sh """curl -X POST \
+                                https://api.fastly.com/service \
+                                -H 'Accept: application/json' \
+                                -H 'Content-Type: application/x-www-form-urlencoded' \
+                                -H 'Fastly-Key: ${key}' \
+                                -H 'cache-control: no-cache' \
+                                -d 'name=${s3_url}&undefined='"""
+
+                        def json = new JsonSlurper().parseText(responseOutput)
+                        service_id = json.id
+
+                    }
+
+                }
+                
+            }
 
 
-        // }
+        }
 
         // stage ('Add Domain to Fastly Service') {
 
@@ -70,7 +96,7 @@ pipeline {
             }
 
         }
-        
+
     }
 
 }
