@@ -37,7 +37,11 @@ pipeline {
 
             steps {
 
-                s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
+                script{
+
+                    s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
+
+                }
 
                 //Debug for first run
                 echo "${s3_url}"
