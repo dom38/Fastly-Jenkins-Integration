@@ -69,13 +69,79 @@ pipeline {
                 
             }
 
-
         }
 
-        // stage ('Add Domain to Fastly Service') {
+        stage ('Add Backend to Fastly Version') {
+
+            steps {
+
+                withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+
+                    script {
+
+                        sh """curl -X POST \
+                        https://api.fastly.com/service/${service_id}/version/1/backend \
+                        -H 'Accept: application/json' \
+                        -H 'Content-Type: application/x-www-form-urlencoded' \
+                        -H 'Fastly-Key: ${key}' \
+                        -H 'cache-control: no-cache' \
+                        -d 'name=test-service1&address=127.0.0.1&port=443&undefined='"""
+
+                    }
+
+                }
+
+            }
 
             
-        // }
+        }
+
+        stage ('Add domain') {
+
+            steps {
+
+                withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+
+                    script {
+
+                        sh """curl -X POST \
+                        https://api.fastly.com/service/${service_id}/version/1/domain \
+                        -H 'Accept: application/json' \
+                        -H 'Content-Type: application/x-www-form-urlencoded' \
+                        -H 'Fastly-Key: ${key}' \
+                        -H 'cache-control: no-cache' \
+                        -d 'name=www.kdjvblvbalwiuevblajhbc.com&undefined='"""
+
+                    }
+
+                }
+
+            }
+            
+        }
+
+        stage ('Activate Version') {
+
+            steps {
+
+                withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+
+                    script {
+
+                        sh """curl -X PUT \
+                        https://api.fastly.com/service/${service_id}/version/1/activate \
+                        -H 'Accept: application/json' \
+                        -H 'Fastly-Key: ${key}' \
+                        -H 'cache-control: no-cache' \
+                        -d 'name=test-service1&undefined='"""
+
+                    }
+
+                }
+
+            }
+            
+        }
 
         // stage ('Test files are available on CDN') {
 
