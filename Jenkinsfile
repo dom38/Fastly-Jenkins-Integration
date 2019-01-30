@@ -110,7 +110,7 @@ pipeline {
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache' \
-                        -d 'name=www.kdjvblvbalwiuevblajhbc.com&undefined='"""
+                        -d 'name=${s3_url}&undefined='"""
 
                     }
 
