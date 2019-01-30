@@ -64,6 +64,7 @@ pipeline {
                         echo "${result}"
                         echo "${json.id}"
                         service_id = json.id.replaceAll("\\s","")
+                        service_id = service_id.trim()
                         echo "${service_id}"
 
                     }
