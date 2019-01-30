@@ -64,7 +64,7 @@ pipeline {
                         echo "${result}"
                         echo "${json.id}"
                         service_id = json.id.replaceAll("\\n","")
-                        service_id = service_id.trim()
+                        service_id = java.net.URLEncoder.encode(service_id, "UTF-8")
                         echo "${service_id}"
 
                     }
