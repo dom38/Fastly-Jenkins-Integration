@@ -1,0 +1,5 @@
+terraform.tfstate
+terraform.tfstate.backup
+variables.tfvars
+.terraform/plugins/darwin_amd64/lock.json
+.terraform/plugins/darwin_amd64/terraform-provider-aws_v1.57.0_x4
