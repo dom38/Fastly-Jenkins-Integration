@@ -80,13 +80,15 @@ pipeline {
 
                     script {
 
-                        sh """curl -X POST \
+                        def result = sh returnStdout: true, script: """curl -X POST \
                         https://api.fastly.com/service/${service_id}/version/1/backend \
                         -H 'Accept: application/json' \
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache' \
                         -d 'name=tterraform-service&address=${s3_url}&port=443&undefined='"""
+
+                        echo "${result}"
 
                     }
 
@@ -105,13 +107,15 @@ pipeline {
 
                     script {
 
-                        sh """curl -X POST \
+                        def result = sh returnStdout: true, script: """curl -X POST \
                         https://api.fastly.com/service/${service_id}/version/1/domain \
                         -H 'Accept: application/json' \
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache' \
                         -d 'name=${s3_url}&undefined='"""
+
+                        echo "${result}"
 
                     }
 
@@ -129,11 +133,13 @@ pipeline {
 
                     script {
 
-                        sh """curl -X PUT \
+                        def result = sh returnStdout: true, script: """curl -X PUT \
                         https://api.fastly.com/service/${service_id}/version/1/activate \
                         -H 'Accept: application/json' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache'"""
+
+                        echo "${result}"
 
                     }
 
@@ -163,11 +169,13 @@ pipeline {
 
                 //     script {
 
-                //         sh """curl -X DELETE \
+                //         def result = sh returnStdout: true, script: """curl -X DELETE \
                 //         https://api.fastly.com/service/${service_id}\
                 //         -H 'Accept: application/json' \
                 //         -H 'Fastly-Key: ${key}' \
                 //         -H 'cache-control: no-cache' """
+
+                //          echo "${result}"
 
                 //     }
 
