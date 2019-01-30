@@ -158,36 +158,36 @@ pipeline {
             
         // }
 
-        stage ('Clean Resources') {
+        // stage ('Clean Resources') {
 
-            steps {
+        //     steps {
 
-                withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
+        //         withCredentials([file(credentialsId: '20423fae-782e-4cd1-be76-8bafe29e997d', variable: 'variables')])  {
 
-                    sh """terraform destroy -lock=false -auto-approve \
-                    -var-file=${variables}"""
+        //             sh """terraform destroy -lock=false -auto-approve \
+        //             -var-file=${variables}"""
 
-                }
+        //         }
 
-                // withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
+        //         withCredentials([string(credentialsId: 'b77f3a2a-401e-4fc5-a7a4-125d0596505d', variable: 'key')]) {
 
-                //     script {
+        //             script {
 
-                //         def result = sh returnStdout: true, script: """curl -X DELETE \
-                //         https://api.fastly.com/service/${service_id}\
-                //         -H 'Accept: application/json' \
-                //         -H 'Fastly-Key: ${key}' \
-                //         -H 'cache-control: no-cache' """
+        //                 def result = sh returnStdout: true, script: """curl -X DELETE \
+        //                 https://api.fastly.com/service/${service_id}\
+        //                 -H 'Accept: application/json' \
+        //                 -H 'Fastly-Key: ${key}' \
+        //                 -H 'cache-control: no-cache' """
 
-                //          echo "${result}"
+        //                  echo "${result}"
 
-                //     }
+        //             }
 
-                // }
+        //         }
 
-            }
+        //     }
 
-        }
+        // }
 
     }
 
