@@ -52,7 +52,7 @@ pipeline {
 
                     script {
 
-                        def result = sh """curl -X POST \
+                        def result = sh returnStdout: true, script: """curl -X POST \
                                 https://api.fastly.com/service \
                                 -H 'Accept: application/json' \
                                 -H 'Content-Type: application/x-www-form-urlencoded' \
