@@ -61,6 +61,7 @@ pipeline {
                                 -d 'name=${s3_url}'"""
 
                         def json = new JsonSlurper().parseText(result)
+                        echo "${result}"
                         service_id = json.id
 
                     }
