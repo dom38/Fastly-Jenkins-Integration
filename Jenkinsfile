@@ -58,7 +58,7 @@ pipeline {
                                 -H 'Content-Type: application/x-www-form-urlencoded' \
                                 -H 'Fastly-Key: ${key}' \
                                 -H 'cache-control: no-cache' \
-                                -d 'name=${s3_url}&undefined='"""
+                                -d 'name=${s3_url}'"""
 
                         def json = new JsonSlurper().parseText(responseOutput)
                         service_id = json.id
