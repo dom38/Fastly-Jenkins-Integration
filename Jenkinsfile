@@ -60,7 +60,7 @@ pipeline {
                                 -H 'cache-control: no-cache' \
                                 -d 'name=${s3_url}'"""
 
-                        def json = new JsonSlurper().parseText(responseOutput)
+                        def json = new JsonSlurper().parseText(result)
                         service_id = json.id
 
                     }
