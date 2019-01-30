@@ -33,6 +33,7 @@ pipeline {
                     script{
 
                         s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
+                        s3_url = s3_url.replaceAll("\\n","")
 
                     }
 
