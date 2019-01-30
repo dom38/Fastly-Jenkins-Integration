@@ -63,7 +63,7 @@ pipeline {
                         def json = new JsonSlurper().parseText(result)
                         echo "${result}"
                         echo "${json.id}"
-                        service_id = json.id.replaceAll("\\s","")
+                        service_id = json.id.replaceAll("\\n","")
                         service_id = service_id.trim()
                         echo "${service_id}"
 
