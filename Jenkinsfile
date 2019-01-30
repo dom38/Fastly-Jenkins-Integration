@@ -85,7 +85,7 @@ pipeline {
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache' \
-                        -d 'name=test-service1&address=127.0.0.1&port=443&undefined='"""
+                        -d 'name=tterraform-service&address=${s3_url}&port=443&undefined='"""
 
                     }
 
@@ -132,8 +132,7 @@ pipeline {
                         https://api.fastly.com/service/${service_id}/version/1/activate \
                         -H 'Accept: application/json' \
                         -H 'Fastly-Key: ${key}' \
-                        -H 'cache-control: no-cache' \
-                        -d 'name=test-service1&undefined='"""
+                        -H 'cache-control: no-cache'"""
 
                     }
 
@@ -167,7 +166,7 @@ pipeline {
                         https://api.fastly.com/service/${service_id}\
                         -H 'Accept: application/json' \
                         -H 'Fastly-Key: ${key}' \
-                        -H 'cache-control: no-cache' \ """
+                        -H 'cache-control: no-cache' """
 
                     }
 
