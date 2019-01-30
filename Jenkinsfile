@@ -62,7 +62,7 @@ pipeline {
 
                         def json = new JsonSlurper().parseText(result)
                         echo "${result}"
-                        service_id = json.id
+                        service_id = json.id.replaceAll("\\s","")
 
                     }
 
@@ -86,7 +86,7 @@ pipeline {
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -H 'Fastly-Key: ${key}' \
                         -H 'cache-control: no-cache' \
-                        -d 'name=tterraform-service&address=${s3_url}&port=443&undefined='"""
+                        -d 'name=terraform-service&address=${s3_url}&port=443"""
 
                         echo "${result}"
 
