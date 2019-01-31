@@ -2,6 +2,7 @@ import groovy.json.JsonSlurper
 
 def s3_url = ''
 def service_id = ''
+def cdn_url = ''
 
 pipeline {
 
@@ -34,6 +35,7 @@ pipeline {
 
                         s3_url = sh returnStdout: true, script: 'terraform output bucket_endpoint'
                         s3_url = s3_url.replaceAll("\\n","")
+                        cdn_url = "${s3_url}.global.prod.fastly.net/"
 
                     }
 
