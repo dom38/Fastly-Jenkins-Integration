@@ -173,7 +173,15 @@ pipeline {
 
                     script {
 
-                        def result = sh returnStdout: true, script: """curl -X DELETE \
+                        def result = sh returnStdout: true, script: """curl -X PUT \
+                        https://api.fastly.com/service/${service_id}/version/1/activate \
+                        -H 'Accept: application/json' \
+                        -H 'Fastly-Key: ${key}' \
+                        -H 'cache-control: no-cache'"""
+
+                        echo "${result}"
+
+                        result = sh returnStdout: true, script: """curl -X DELETE \
                         https://api.fastly.com/service/${service_id}\
                         -H 'Accept: application/json' \
                         -H 'Fastly-Key: ${key}' \
